@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>ALJABAR FUNLAB</title>
+<style>
+  body{
+    margin:0;font-family:'Poppins', sans-serif;color:#fff;
+    background:url('https://i.imgur.com/f2XWQrw.jpeg');
+    background-size:cover;background-attachment:fixed;
+  }
+  header{
+    background:rgba(0,0,0,0.55);backdrop-filter:blur(6px);
+    padding:25px;text-align:center;
+    font-size:32px;font-weight:800;
+    border-bottom:2px solid rgba(255,255,255,0.2);
+  }
+  nav{
+    display:flex;justify-content:center;gap:18px;margin-top:15px;
+  }
+  nav button{
+    padding:10px 22px;font-size:17px;border:none;border-radius:12px;
+    cursor:pointer;font-weight:700;
+    background:#ffd447;color:#000;
+    transition:.25s;box-shadow:0 4px 12px rgba(0,0,0,.2);
+  }
+  nav button:hover{transform:scale(1.08);background:white;}
+
+  #content{
+    width:90%;margin:auto;margin-top:25px;
+    background:rgba(0,0,0,0.5);backdrop-filter:blur(5px);
+    padding:25px;border-radius:20px;
+    min-height:350px;animation:fade .4s ease;position:relative;
+  }
+  @keyframes fade{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
+
+  /* Gambar Sudut */
+  .corner-img{
+    position:absolute;width:120px;opacity:.9;
+  }
+  .top-left{top:-10px;left:-10px;}
+  .top-right{top:-10px;right:-10px;}
+  .bottom-left{bottom:-10px;left:-10px;}
+  .bottom-right{bottom:-10px;right:-10px;}
+
+  /* Popup */
+  .popup-bg{
+    position:fixed;top:0;left:0;height:100%;width:100%;background:rgba(0,0,0,0.7);
+    display:none;align-items:center;justify-content:center;
+  }
+  .popup{
+    background:white;color:black;padding:25px;border-radius:15px;
+    width:320px;text-align:center;font-size:18px;font-weight:600;
+    animation:pop .3s ease;
+  }
+  @keyframes pop{from{transform:scale(.6);}to{transform:scale(1);}}
+
+  /* Maskot */
+  #maskot{
+    position:fixed;bottom:20px;right:20px;
+    display:flex;gap:10px;align-items:center;
+  }
+  #maskot img{width:95px;filter:drop-shadow(0 4px 8px rgba(0,0,0,.4));animation:bounce 2s infinite;}
+  @keyframes bounce{0%,100%{transform:translateY(0);}50%{transform:translateY(-10px);}}
+
+  #bubble{
+    background:white;color:black;padding:12px 16px;border-radius:15px;
+    max-width:180px;font-weight:700;display:none;
+  }
+</style>
+  <style>
+    .corner-img{
+      position:absolute;
+      width:120px;
+      opacity:0.9;
+    }
+    .corner-top-left{ top:10px; left:10px; }
+    .corner-top-right{ top:10px; right:10px; }
+    .corner-bottom-left{ bottom:10px; left:10px; }
+    .corner-bottom-right{ bottom:10px; right:10px; }
+    @keyframes floaty{
+      0%{transform:translateY(0);} 50%{transform:translateY(-10px);} 100%{transform:translateY(0);} }
+    .float{ animation: floaty 3s infinite ease-in-out; }
+  </style>
+</head>
+<body>
+  
+<header>🌟 ALJABAR LAND : Dunia Seru Bentuk dan Operasi 🌟</header>
+
+<nav>
+  <button onclick="showPage('home')">Beranda</button>
+  <button onclick="showPage('video')">Video</button>
+  <button onclick="showPage('materi')">Ringkasan Materi</button>
+  <button onclick="showPage('quiz')">Kuis</button>
+</nav>
+
+<div id="content"></div>
+
+<!-- Maskot -->
+<div id="maskot">
+  <img src="https://i.pinimg.com/originals/70/f4/57/70f45736127e5c025f5fd1d8ba5d6097.png" />
+  <div id="bubble"></div>
+</div>
+
+<!-- Popup -->
+<div class="popup-bg" id="popupBg" onclick="this.style.display='none'">
+  <div class="popup" id="popupBox"></div>
+</div>
+
+<script>
+function addCorners(){
+  const content=document.getElementById('content');
+   content.innerHTML += `
+    <img src="https://i.imgur.com/WsVM7ZI.png" class="corner-img top-left">
+    <img src="https://i.imgur.com/3EfJ3Vp.png" class="corner-img top-right">
+    <img src="https://i.imgur.com/TCSeYxr.png" class="corner-img bottom-left">
+    <img src="https://i.imgur.com/n90jzQk.png" class="corner-img bottom-right">`;
+}
+  
+
+function speak(text){
+  const bubble=document.getElementById('bubble');
+  bubble.style.display='block';
+  bubble.textContent=text;
+  setTimeout(()=> bubble.style.display='none',4500);
+}
+function popup(msg){
+  document.getElementById('popupBox').innerHTML=msg;
+  document.getElementById('popupBg').style.display='flex';
+}
+
+function showPage(page){
+  if(page==='home'){
+    content.innerHTML=`
+      <h2>Selamat Datang di Dunia Aljabar!</h2>
+      <p>Di sini Kamu Akan Mempelajari Bentuk Aljabar, Operasi Hitung, Hingga Kuis Interaktif!</p>
+    
+      <h3>Cara Menggunakan:</h3>
+      <ul>
+        <li><b> Pilih menu di bagian atas untuk membuka halaman yang diinginkan.</li>
+        <li><b> Tekan menu video pada halaman untuk mulai menonton materi.</li>
+        <li><b> Baca ringkasan materi untuk memahami bentuk dan operasi aljabar.</li>
+        <li><b> Masuk ke halaman kuis dan pilih jawaban yang menurutmu benar.</li>
+        <li><b> Lihat hasilnya melalui popup yang muncul setelah memilih jawaban.</li>
+        <li><b> Kamu bisa kembali ke halaman lain kapan saja dengan menekan menu di atas.</li>
+      </ul>`;
+    addCorners();
+    speak("Halo! Selamat datang di Dunia Aljabar!");
+  }
+
+  if(page==='video'){
+    content.innerHTML=`
+      <h2>Video Pembelajaran</h2>
+
+      <iframe width="100%" height="260" style="border-radius:15px" 
+      src="https://www.youtube.com/embed/-O09_06OcIM?si=YvQRWkyGZR-eIdN6" allowfullscreen></iframe>`;
+    addCorners();
+    speak("Tonton videonya, ya!");
+  }
+
+  if(page==='materi'){
+    content.innerHTML=`
+      <h2>Ringkasan Materi</h2>
+    
+
+      <p><b>Bentuk Aljabar</b> adalah ekspresi matematika yang mengandung variabel dan konstanta.</p>
+      <ul>
+        <li>Contoh: 3x + 2, 7y - 9, 2a + 5</li>
+        <li><b>Variabel</b>: huruf seperti x, y, a</li>
+        <li><b>Koefisien</b>: angka di depan variabel</li>
+        <li><b>Konstanta</b>: angka tanpa variabel</li>
+      </ul>
+
+      <h3>Operasi pada Bentuk Aljabar:</h3>
+      <ul>
+        <li><b>Penjumlahan</b>: 3x + 2x = <b>5x</b></li>
+        <li><b>Pengurangan</b>: 8y - 3y = <b>5y</b></li>
+        <li><b>Perkalian</b>: 2 × 4x = <b>8x</b></li>
+        <li><b>Suku Sejenis</b>: suku yang variabel & pangkatnya sama</li>
+      </ul>`;
+    addCorners();
+    speak("Ini ringkasan lengkapnya!");
+  }
+
+  if(page==='quiz'){
+    content.innerHTML=`
+      <h2>Kuis Interaktif</h2>
+
+      <p><b>1.</b> Bentuk aljabar selalu memiliki variabel.<br>
+      <button onclick="check(true,true)">Benar</button> <button onclick="check(false,true)">Salah</button></p>
+
+      <p><b>2.</b> Koefisien adalah angka di depan variabel.<br>
+      <button onclick="check(true,true)">Benar</button> <button onclick="check(false,true)">Salah</button></p>
+
+      <p><b>3.</b> Rani memiliki uang Rp15.000. Ia membeli minuman seharga x rupiah.
+Sisa uang Rani dimodelkan dengan persamaan 15.000 + x.<br>
+      <button onclick="check(false,true)">Salah</button> <button onclick="check(true,true)">Salah</button></p>
+
+      <p><b>4.</b> Harga 1 ikat bayam adalah Rp2.000.
+Model aljabar untuk menghitung harga total jika membeli x ikat adalah 2.000 + x.<br>
+      <button onclick="check(false,true)">Salah</button> <button onclick="check(true,true)">Salah</button></p>
+
+      <p><b>5.</b> Dodi memiliki 8 pensil. Ia memberi temannya x pensil.
+Model aljabar sisa pensil adalah 8 - x.<br>
+      <button onclick="check(true,true)">Benar</button> <button onclick="check(false,true)">Salah</button></p>`;
+
+    addCorners();
+    speak("Ayo kerjakan kuisnya!");
+  }
+}
+
+function check(answer, correct){
+  if(answer===correct) popup("<h3>Jawabanmu Benar! 🎉</h3>");
+  else popup("<h3>Salah, coba lagi! ❌</h3>");
+}
+
+showPage('home');
+</script>
+
+</body>
+</html>
